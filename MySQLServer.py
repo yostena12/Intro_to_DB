@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
 Task 1: Create a MySQL database named 'alx_book_store'
-Handles exceptions, no SELECT or SHOW statements used
+Handles exceptions and closes connection properly
+No SELECT or SHOW statements used
 """
 
 import mysql.connector
@@ -12,25 +13,26 @@ def create_database():
     cursor = None
 
     try:
-        # Try connecting to MySQL server
+        # Establish connection to MySQL server
         connection = mysql.connector.connect(
-            host="localhost",       # Change if needed
-            user="root",            # Your MySQL username
-            password="yourpassword" # Replace with your actual MySQL password
+            host="localhost",        # change if needed
+            user="root",             # your MySQL username
+            password="yourpassword"  # replace with your MySQL password
         )
 
-        # Check connection
+        # Check if connection is established
         if connection.is_connected():
             cursor = connection.cursor()
+            # Create the database if it does not exist
             cursor.execute("CREATE DATABASE IF NOT EXISTS alx_book_store")
             print("Database 'alx_book_store' created successfully!")
 
     except Error as e:
-        # Handles any connection or query error
+        # Handle connection or query errors
         print(f"Error while connecting to MySQL: {e}")
 
     finally:
-        # Ensures resources are closed properly
+        # Ensure all resources are properly closed
         if cursor:
             cursor.close()
         if connection and connection.is_connected():
