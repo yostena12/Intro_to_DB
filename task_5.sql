@@ -1,4 +1,3 @@
--- Insert a single customer into the Customers table
 
 USE alx_book_store;
 
